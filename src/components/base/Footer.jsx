@@ -20,7 +20,7 @@ const FooterDiv = styled.div`
   align-items: center;
   flex-wrap: wrap;
   background: violet;
-  position: absolute;
+  position: sticky;
   bottom: 0;
   left: 0;
   right: 0;

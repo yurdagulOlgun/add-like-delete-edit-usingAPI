@@ -20,7 +20,7 @@ const Nav = styled.div`
   align-items: center;
   flex-wrap: wrap;
   background: violet;
-  position: absolute;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
