@@ -1,9 +1,11 @@
 import styled from "styled-components";
+import phone from "../assets/phone.png";
+import email from "../assets/email.png";
+import link from "../assets/link.png";
 
 export default function UserCard({ item }) {
   return (
     <>
-      {/* <Wrapper> */}
       <Container>
         <Avatar
           src={`https://avatars.dicebear.com/v2/avataaars/${item.firstName}.svg`}
@@ -11,28 +13,31 @@ export default function UserCard({ item }) {
         <Name>
           {item.firstName} {item.lastName}
         </Name>
-        <Text>{item.email}</Text>
+        <IconText>
+          <Icon src={email} />
+          <Text>{item.email}</Text>
+        </IconText>
+        <IconText>
+          <Icon src={phone} />
+          <Text>{item.phone}</Text>
+        </IconText>
+        <IconText>
+          <Icon src={link} />
+          <Text>https://slashdot.org</Text>
+        </IconText>
       </Container>
-      {/* </Wrapper> */}
     </>
   );
 }
-
-// const Wrapper = styled.div`
-//     display: flex;
-//   flex-wrap: wrap;
-//   justify-content: center;
-// `;
 
 const Container = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-  text-align: center;
+  justify-content: space-between;
+  text-align: start;
   margin-top: 1rem;
-  /* position: relative; */
   width: 280px;
   margin-bottom: 1rem;
   margin-left: 1rem;
@@ -52,11 +57,34 @@ const Avatar = styled.img`
 `;
 
 const Name = styled.h1`
-  font-weight: bold;
-  font-size: 1.5rem;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+  color: #1a1a1a;
+  padding-left: 21px;
 `;
+
+const Icon = styled.img``;
 
 const Text = styled.p`
   margin: 1rem 2rem;
-  font-size: 0.9rem;
+  /* font-size: 0.8rem; */
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  display: flex;
+  align-items: center;
+
+  color: #1a1a1a;
+`;
+
+const IconText = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: flex-start;
+  padding-left: 21px;
 `;
