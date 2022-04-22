@@ -14,6 +14,7 @@ export default function NavBar()  {
 }
 
 const Nav = styled.div`
+  z-index: 9999999999999999;
   padding: 0 2rem;
   display: flex;
   justify-content: space-between;

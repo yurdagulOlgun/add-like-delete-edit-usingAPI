@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import Pagination from "../components/pagination/Pagination";
 import { fetchUsers } from "../data";
-
+import UserCard from "../styledComponents/UserCard";
+import styled from "styled-components"
 
 export default function Home(props){
 
@@ -15,12 +16,21 @@ export default function Home(props){
 
     return(
         <>
-            {
-                data?.map((item) => (
-                    <p key={item.id}>{item.firstName}</p>
+        <Wrapper>
+               {
+                data?.map((item,index) => (
+                    <UserCard key={index} item={item} />
                 ))
-            }
+            } 
+          </Wrapper>  
+            
           <Pagination data={data} setLimit={setLimit} limit={limit} />
         </>
     )
 }
+
+const Wrapper = styled.div`
+    display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;

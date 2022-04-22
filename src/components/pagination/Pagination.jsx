@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import useInfiniteScroll from "./useInfiniteScroll";
+import UserCard from "../../styledComponents/UserCard";
 
 const Pagination = ({ data, setLimit, limit }) => {
   const [user, setUser] = useState([]);
@@ -8,7 +9,6 @@ const Pagination = ({ data, setLimit, limit }) => {
   function moreData() {
     setLimit(limit+12);
     setUser([...data, ...user]);
-     
     setIsFetching(false);
   }
 
@@ -16,7 +16,7 @@ const Pagination = ({ data, setLimit, limit }) => {
     <>
       {
       user?.slice(0,60)?.map((item, index) => (
-        <p key={index}>{item.firstName}</p>
+        <UserCard key={index} item={item} />
       ))}
     </>
   );
