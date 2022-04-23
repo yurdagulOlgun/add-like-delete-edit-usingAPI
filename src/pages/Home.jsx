@@ -4,8 +4,12 @@ import Pagination from "../components/pagination/Pagination";
 import { fetchUsers } from "../data";
 import UserCard from "../styledComponents/UserCard";
 import styled from "styled-components"
+import { useSelector } from "react-redux";
 
 export default function Home(props){
+
+  // const {deleteUser} = useSelector((state) => state)
+  
 
  const [limit,setLimit] = useState(12)
 
@@ -13,7 +17,7 @@ export default function Home(props){
         retry: false,
         select: (data) => data.data.users,
       });
-
+// const isDelete = deleteUser?.some((del) => del.id === data?.id)
     return(
         <>
         <Wrapper>
