@@ -6,13 +6,18 @@ import dellete from "../assets/delete.png";
 import line from "../assets/line.png";
 import { useDispatch, useSelector } from "react-redux";
 import { addFavorite, removeFavorite } from "../redux/favorite";
+import { Link, useParams } from "react-router-dom";
+
 
 export default function FavEditDel({item}) {
 
+    const params = useParams();
+    
     const dispatch = useDispatch();
-    const {favorites} = useSelector((state) =>state);
+    const {favorites, deleteUsers} = useSelector((state) =>state);
 
     const isFav = favorites?.some((fav) => (fav.id === item.id))
+
 
   return (
     <>
@@ -25,7 +30,8 @@ export default function FavEditDel({item}) {
       <BottomIcons src={line} />
       <BottomIcons src={edit} />
       <BottomIcons src={line} />
-      <BottomIcons src={dellete} />
+      <BottomIcons src={dellete} onClick={()=> console.log(item.id)} />
+      
     </>
   );
 }
