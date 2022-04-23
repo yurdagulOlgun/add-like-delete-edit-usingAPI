@@ -2,7 +2,7 @@ import styled from "styled-components";
 import phone from "../assets/phone.png";
 import email from "../assets/email.png";
 import link from "../assets/link.png";
-
+import FavEditDel from "./FavEditDel";
 export default function UserCard({ item }) {
   return (
     <>
@@ -25,6 +25,9 @@ export default function UserCard({ item }) {
           <Icon src={link} />
           <Text>https://slashdot.org</Text>
         </IconText>
+        <BottomIconsWrapper>
+          <FavEditDel item={item} />
+        </BottomIconsWrapper>
       </Container>
     </>
   );
@@ -46,7 +49,6 @@ const Container = styled.div`
 `;
 
 const Avatar = styled.img`
-  /* position: absolute; */
   padding: 0.9rem;
   height: 10rem;
 
@@ -71,7 +73,6 @@ const Icon = styled.img``;
 
 const Text = styled.p`
   margin: 1rem 2rem;
-  /* font-size: 0.8rem; */
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
@@ -87,4 +88,15 @@ const IconText = styled.div`
   align-items: center;
   align-self: flex-start;
   padding-left: 21px;
+`;
+
+const BottomIconsWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: center;
+  padding-left: 21px;
+  width: 100%;
+  background: #fafafa;
+  box-shadow: 0px -1px 0px #e8e8e8;
 `;
