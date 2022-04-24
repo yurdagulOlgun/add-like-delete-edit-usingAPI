@@ -3,7 +3,7 @@ import phone from "../assets/phone.png";
 import email from "../assets/email.png";
 import link from "../assets/link.png";
 import FavEditDel from "./FavEditDel";
-export default function UserCard({ item }) {
+export default function UserCard({ item,popupHandler }) {
   return (
     <>
       <Container>
@@ -26,7 +26,7 @@ export default function UserCard({ item }) {
           <Text>https://slashdot.org</Text>
         </IconText>
         <BottomIconsWrapper>
-          <FavEditDel item={item} />
+          <FavEditDel item={item} popupHandler={popupHandler} />
         </BottomIconsWrapper>
       </Container>
     </>
@@ -46,6 +46,7 @@ const Container = styled.div`
   margin-left: 1rem;
   border: 1.5px solid #f2f2f2;
   filter: drop-shadow(0px 4px 4px #f2f2f2);
+  background-color: #FAFAFA;
 `;
 
 const Avatar = styled.img`
@@ -54,7 +55,7 @@ const Avatar = styled.img`
 
   width: 100%;
   &:hover {
-    background-color: #f2f2f2;
+    background-color: #E8E8E8;
   }
 `;
 

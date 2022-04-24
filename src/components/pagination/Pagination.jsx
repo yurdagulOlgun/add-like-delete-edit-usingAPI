@@ -14,8 +14,6 @@ const Pagination = ({ data, setLimit, limit }) => {
     setUser([...data, ...user]);
     setIsFetching(false);
   }
-  console.log("limit::::", limit);
-  console.log("data:::", user);
   return (
     <>
       <Wrapper>

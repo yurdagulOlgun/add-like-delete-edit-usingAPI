@@ -6,42 +6,27 @@ import dellete from "../assets/delete.png";
 import line from "../assets/line.png";
 import { useDispatch, useSelector } from "react-redux";
 import { addFavorite, removeFavorite } from "../redux/favorite";
-import {deleteUserRedux} from "../redux/delete"
-import { useEffect } from "react";
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import EditUser from "./EditUser"
 
-export default function FavEditDel({ item }) {
-  // const params = useParams();
-// console.log(params.id);
-  const [data,setData] = useState()
-  const [userID, setUserID] = useState()
+export default function FavEditDel({ item,popupHandler }) {
+
+  // const [isOpen, setIsOpen] = useState(false)
   const dispatch = useDispatch();
   const { favorites, deleteUser } = useSelector((state) => state);
 
-  // console.log(data?.isDeleted);
-// console.log(userID);
   const isFav = favorites?.some((fav) => fav.id === item.id);
-  // const isDelete = deleteUser?.some((del) => del.id === item.id)
 
-  // const deleteClickHandler = () => {
-  //   setUserID(e.target.id) 
-  //   dispatch(deleteUserRedux(item.id))
+  // const popupHandler = () => {
+  //   setIsOpen(!isOpen)
   // }
-
-  // useEffect(() => {
-  //   fetch(`https://dummyjson.com/users/${userID}`, {
-  //     method: "DELETE",
-  //   }).then((res) => res.json()).then((json) => {
-  //     setData(json)
-      
-  //   })
-  // }, [isDelete,userID]);
-
-  // console.log(data);
 
   return (
     <>
+    {/* {
+      isOpen && <EditUser setIsOpen={setIsOpen} />
+    } */}
+
       {isFav ? (
         <BottomIcons
           src={clickedHeart}
@@ -56,9 +41,9 @@ export default function FavEditDel({ item }) {
       )}
 
       <BottomIcons src={line} />
-      <BottomIcons src={edit} />
-      <BottomIcons src={line} /> <Link to={":id"} >
-      <BottomIcons src={dellete}  /> </Link>
+      <BottomIcons src={edit} onClick={popupHandler} />
+      <BottomIcons src={line} /> 
+      <BottomIcons src={dellete}  /> 
     </>
   );
 }
