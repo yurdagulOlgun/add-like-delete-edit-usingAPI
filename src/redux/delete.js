@@ -1,8 +1,8 @@
 const DELETE_USER = "DELETE_USER"
 
-export const deleteUserRedux = (id) => ({
+export const deleteUserRedux = (id,data) => ({
     type: DELETE_USER,
-    payload: {id},
+    payload: {id,data},
   });
 
   const deleteReducer = (deleteUsers =[], action) => {

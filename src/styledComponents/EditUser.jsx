@@ -131,4 +131,7 @@ const Close = styled.button`
   height: 25px;
   text-align: center;
   font-size: 20px;
+  &:hover{
+    color: #1890FF;
+  }
 `;

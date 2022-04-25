@@ -6,27 +6,18 @@ import dellete from "../assets/delete.png";
 import line from "../assets/line.png";
 import { useDispatch, useSelector } from "react-redux";
 import { addFavorite, removeFavorite } from "../redux/favorite";
-import { useState } from "react";
-import EditUser from "./EditUser"
+import hoverDelete from "../assets/hoverDelete.png";
+import hoverEdit from "../assets/hoverEdit.png";
+import { deleteUserRedux } from "../redux/delete";
 
-export default function FavEditDel({ item,popupHandler }) {
-
-  // const [isOpen, setIsOpen] = useState(false)
+export default function FavEditDel({ item, popupHandler,delButtonHandler }) {
   const dispatch = useDispatch();
   const { favorites, deleteUser } = useSelector((state) => state);
 
   const isFav = favorites?.some((fav) => fav.id === item.id);
 
-  // const popupHandler = () => {
-  //   setIsOpen(!isOpen)
-  // }
-
   return (
     <>
-    {/* {
-      isOpen && <EditUser setIsOpen={setIsOpen} />
-    } */}
-
       {isFav ? (
         <BottomIcons
           src={clickedHeart}
@@ -41,13 +32,26 @@ export default function FavEditDel({ item,popupHandler }) {
       )}
 
       <BottomIcons src={line} />
-      <BottomIcons src={edit} onClick={popupHandler} />
-      <BottomIcons src={line} /> 
-      <BottomIcons src={dellete}  /> 
+      <BottomIcons
+        src={edit}
+        style={{ width: "19px", height: "19px" }}
+        onClick={popupHandler}
+        onMouseOver={(e) => (e.currentTarget.src = `${hoverEdit}`)}
+        onMouseOut={(e) => (e.currentTarget.src = `${edit}`)}
+      />
+      <BottomIcons src={line} />
+      <BottomIcons
+        src={dellete}
+        onClick={()=> {dispatch(deleteUserRedux(item.id)); delButtonHandler();}}
+        style={{ width: "19px", height: "19px" }}
+        onMouseOver={(e) => (e.currentTarget.src = `${hoverDelete}`)}
+        onMouseOut={(e) => (e.currentTarget.src = `${dellete}`)}
+      />
     </>
   );
 }
 
 const BottomIcons = styled.img`
+  cursor: pointer;
   padding: 5px 10px 5px 25px;
 `;
