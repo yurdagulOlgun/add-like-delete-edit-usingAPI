@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useInfiniteScroll from "./useInfiniteScroll";
 import UserCard from "../../styledComponents/UserCard";
 import styled from "styled-components";
@@ -11,9 +11,10 @@ const Pagination = ({ data, setLimit, limit }) => {
 
   function moreData() {
     setLimit(limit + 12);
-    setUser([...data, ...user]);
+    setUser([...data]);
     setIsFetching(false);
   }
+  console.log(user);
   return (
     <>
       <Wrapper>
