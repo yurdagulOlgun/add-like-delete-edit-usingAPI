@@ -3,7 +3,12 @@ import phone from "../assets/phone.png";
 import email from "../assets/email.png";
 import link from "../assets/link.png";
 import FavEditDel from "./FavEditDel";
-export default function UserCard({ item,popupHandler,delButtonHandler }) {
+export default function UserCard({ item,popupHandler,delButtonHandler,editClickHandler }) {
+
+  // function editClickHandler(){
+  //   console.log(item.id);
+  // }
+
   return (
     <>
       <Container>
@@ -26,7 +31,12 @@ export default function UserCard({ item,popupHandler,delButtonHandler }) {
           <Text>https://slashdot.org</Text>
         </IconText>
         <BottomIconsWrapper>
-          <FavEditDel item={item} popupHandler={popupHandler} delButtonHandler={delButtonHandler} />
+          <FavEditDel 
+          item={item} 
+          popupHandler={popupHandler} 
+          delButtonHandler={delButtonHandler}
+          editClickHandler={editClickHandler}
+          />
         </BottomIconsWrapper>
       </Container>
     </>

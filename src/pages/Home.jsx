@@ -1,49 +1,66 @@
 import React from "react";
 import { useState } from "react";
-
 import Pagination from "../components/pagination/Pagination";
-
 import UserCard from "../styledComponents/UserCard";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import Search from "../styledComponents/Search";
 import { useRef } from "react";
 import EditUser from "../styledComponents/EditUser";
-
 import { useEffect } from "react";
 import { getUsers } from "../redux/apiCalls";
-import { deleteUserSuccess } from "../redux/userRedux";
+import { deleteUserSuccess, editUser } from "../redux/userRedux";
 
 const Home = (props) => {
   const dispatch = useDispatch();
-
   const users = useSelector((state) => state.user.users);
 
-  // const [users, setUsers] = useState([]);
   const [q, setQ] = useState("");
   const inputRef = useRef();
   const [limit, setLimit] = useState(12);
   const [isOpen, setIsOpen] = useState(false);
-
-  // useEffect(() => {
-  //   setUsers(usersRR);
-  // }, [usersRR]);
+  //edit states
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [website, setWebsite] = useState("");
 
   useEffect(() => {
-    getUsers(dispatch, limit);
-  }, [dispatch, limit]);
+    if (users.length < 1) {
+      getUsers(dispatch, limit);
+    }
+  }, [dispatch, limit, users]);
 
-  const popupHandler = () => {
+  const popupHandler = (id) => {
     setIsOpen(!isOpen);
+    console.log(id);
+    dispatch(editUser(id))
   };
 
   function delButtonHandler(id) {
     dispatch(deleteUserSuccess(id));
   }
 
+  function editClickHandler(){
+    dispatch(editUser(name,email,phone,website))
+  }
+
   return (
     <>
-      {isOpen && <EditUser setIsOpen={setIsOpen} />}
+      {isOpen && (
+        <EditUser 
+        setIsOpen={setIsOpen}
+        name={name} 
+        setName={setName}
+        email={email}
+        setEmail={setEmail}
+        phone={phone}
+        setPhone={setPhone}
+        website={website}
+        setWebsite={setWebsite}
+        editClickHandler={editClickHandler}
+        />
+      )}
 
       {window.screen.width > 729 ? (
         <Search q={q} setQ={setQ} inputRef={inputRef} />
@@ -66,6 +83,7 @@ const Home = (props) => {
                 item={item}
                 popupHandler={popupHandler}
                 delButtonHandler={delButtonHandler}
+                editClickHandler={editClickHandler}
               />
             ))}
         </Wrapper>
@@ -77,11 +95,12 @@ const Home = (props) => {
               item={item}
               popupHandler={popupHandler}
               delButtonHandler={delButtonHandler}
+              editClickHandler={editClickHandler}
             />
           ))}
         </Wrapper>
       )}
-      <Pagination data={users} setLimit={setLimit} limit={limit} />
+      <Pagination setLimit={setLimit} limit={limit} />
     </>
   );
 };

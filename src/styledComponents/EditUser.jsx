@@ -1,38 +1,66 @@
 import styled from "styled-components";
 
-export default function EditUser({ setIsOpen }) {
+export default function EditUser({
+  setIsOpen,
+  name,
+  setName,
+  email,
+  setEmail,
+  phone,
+  setPhone,
+  website,
+  setWebsite,
+  editClickHandler,
+}) {
   const formSubmitHandler = (e) => {
     e.preventDefault();
   };
 
+  const inputChangeHandler = (e) => {
+    setTimeout(() => {
+      setName(e.target.value);
+      setEmail(e.target.value);
+      setPhone(e.target.value);
+      setWebsite(e.target.value);
+    }, 300);
+  };
+  // console.log(name,email,phone,website);
   return (
     <>
       <FormWrapper>
         <Form onSubmit={formSubmitHandler}>
-          <Close onClick={() => setIsOpen(false)}>x</Close>
+          <Header>
+            <HeaderText>Edit User</HeaderText>
+            <Close onClick={() => setIsOpen(false)}>x</Close>
+          </Header>
+
           <WrapperWrapper>
             <LabInWrapper>
               <Label>Name:</Label>
-              <Input type="text" />
+              <Input
+                type="text"
+                onChange={inputChangeHandler}
+                defaultValue={name}
+              />
             </LabInWrapper>
             <LabInWrapper>
               <Label>Email:</Label>
-              <Input type="text" />
+              <Input type="text" onChange={inputChangeHandler} />
             </LabInWrapper>
             <LabInWrapper>
               <Label>Phone:</Label>
-              <Input type="text" />
+              <Input type="text" onChange={inputChangeHandler} />
             </LabInWrapper>
             <LabInWrapper>
               <Label>Website: </Label>
-              <Input type="text" />
+              <Input type="text" onChange={inputChangeHandler} />
             </LabInWrapper>
           </WrapperWrapper>
           <ButtonWrapper>
             <Cancel type="submit" onClick={() => setIsOpen(false)}>
               Cancel
             </Cancel>
-            <Save type="submit">Save</Save>
+            <Save type="submit" onClick={() => editClickHandler}  >Save</Save>
           </ButtonWrapper>
         </Form>
       </FormWrapper>
@@ -46,27 +74,20 @@ const FormWrapper = styled.div`
   background: #00000050;
   width: 100%;
   height: 100%;
-  /* top: 0; */
-  /* left: 0; */
+  top: 0;
+  left: 0;
   z-index: 999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
   padding: 5%;
-  justify-content: space-around;
   position: relative;
-  /* width: 50%; */
-  width: 468px;
-  height: 360px;
-  left: 30px;
-  top: 30px;
-  margin: auto;
-  /* height: 50%; */
-  max-height: 70vh;
-  margin-top: calc(100vh - 85vh - 20px);
   background: #ffffff;
   border-radius: 4px;
 
@@ -79,27 +100,36 @@ const LabInWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   align-self: flex-end;
+  margin-bottom: 20px;
 `;
 
 const WrapperWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-self: center;
-  justify-content: space-around;
 `;
 
 const Label = styled.label`
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 22px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
   display: flex;
   align-items: center;
-  align-self: flex-start;
+  text-align: right;
   color: #1a1a1a;
-  padding-right: 21px;
+  padding-right: 8px;
 `;
 
-const Input = styled.input``;
+const Input = styled.input`
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+
+  &:focus {
+    border: 1px solid #1890ff;
+    outline: none;
+  }
+`;
 
 const Cancel = styled.button`
   text-decoration: none;
@@ -110,31 +140,33 @@ const Cancel = styled.button`
   border: 1px solid #e8e8e8;
   box-sizing: border-box;
   border-radius: 4px;
+  width: 70px;
+  height: 32px;
+  left: 0px;
+  top: 0px;
+  margin-right: 20px;
 `;
 
 const Save = styled.button`
   border: none;
   text-decoration: none;
-  /* display: inline-block; */
   background: #1890ff;
   text-align: center;
-  /* box-sizing: border-box; */
+  width: 70px;
+  height: 32px;
+  left: 0px;
+  top: 0px;
   border-radius: 4px;
   cursor: pointer;
-  /* margin-left: 21px; */
 `;
 
 const Close = styled.button`
   border: none;
   text-decoration: none;
   cursor: pointer;
-
+  color: #969696;
   display: flex;
   align-self: flex-end;
-  /* display: inline-block; */
-  /* position: absolute; */
-  /* right: calc(10% - 170px);
-  top: calc(100vh - 75vh - 15px); */
   background: none;
   width: 25px;
   height: 25px;
@@ -147,5 +179,24 @@ const Close = styled.button`
 
 const ButtonWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+`;
+
+const Header = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-self: flex-start;
+  margin-top: -40px;
+  margin-bottom: 40px;
+  box-shadow: 0px 2px #e8e8e8;
+  gap: 200px;
+`;
+
+const HeaderText = styled.h1`
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  display: flex;
+  align-items: center;
+  color: #1a1a1a;
 `;

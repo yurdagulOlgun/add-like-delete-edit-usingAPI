@@ -9,7 +9,7 @@ import { addFavorite, removeFavorite } from "../redux/favorite";
 import hoverDelete from "../assets/hoverDelete.png";
 import hoverEdit from "../assets/hoverEdit.png";
 
-export default function FavEditDel({ item, popupHandler,delButtonHandler }) {
+export default function FavEditDel({ item, popupHandler,delButtonHandler,editClickHandler }) {
   const dispatch = useDispatch();
   const { favorites } = useSelector((state) => state);
 
@@ -34,7 +34,7 @@ export default function FavEditDel({ item, popupHandler,delButtonHandler }) {
       <BottomIcons
         src={edit}
         style={{ width: "19px", height: "19px" }}
-        onClick={popupHandler}
+        onClick={ () =>  {popupHandler(item.id); }}
         onMouseOver={(e) => (e.currentTarget.src = `${hoverEdit}`)}
         onMouseOut={(e) => (e.currentTarget.src = `${edit}`)}
       />

@@ -36,9 +36,13 @@ const userSlice = createSlice({
             state.isFetching = false;
             state.error = true;
         },
-        
+        //edit
+        editUser: (state, action) => {
+            const userID = action.payload
+            // state.users = state.users.filter((item) => item.id === userID)
+        }
     }
 });
 
-export const { getUsersFailure, getUsersStart, getUsersSuccess, deleteUserFailure, deleteUserStart, deleteUserSuccess } = userSlice.actions;
+export const { getUsersFailure, getUsersStart, getUsersSuccess, deleteUserFailure, deleteUserStart, deleteUserSuccess, editUser } = userSlice.actions;
 export default userSlice.reducer;
