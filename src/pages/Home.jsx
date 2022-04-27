@@ -23,7 +23,8 @@ const Home = (props) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [website, setWebsite] = useState("");
+  const [domain, setDomain] = useState("");
+  const [userID, setUserID] = useState();
 
   useEffect(() => {
     if (users.length < 1) {
@@ -33,16 +34,17 @@ const Home = (props) => {
 
   const popupHandler = (id) => {
     setIsOpen(!isOpen);
-    console.log(id);
-    dispatch(editUser(id))
+    setUserID(id)
   };
 
   function delButtonHandler(id) {
     dispatch(deleteUserSuccess(id));
   }
 
-  function editClickHandler(){
-    dispatch(editUser(name,email,phone,website))
+  function editClickHandler(e){
+    e.preventDefault();
+    dispatch(editUser({userID,name,email,phone,domain}))
+    setIsOpen(!isOpen)
   }
 
   return (
@@ -56,8 +58,8 @@ const Home = (props) => {
         setEmail={setEmail}
         phone={phone}
         setPhone={setPhone}
-        website={website}
-        setWebsite={setWebsite}
+        domain={domain}
+        setDomain={setDomain}
         editClickHandler={editClickHandler}
         />
       )}

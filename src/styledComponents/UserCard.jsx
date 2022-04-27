@@ -28,7 +28,7 @@ export default function UserCard({ item,popupHandler,delButtonHandler,editClickH
         </IconText>
         <IconText>
           <Icon src={link} />
-          <Text>https://slashdot.org</Text>
+          <Text>https://{item.domain}</Text>
         </IconText>
         <BottomIconsWrapper>
           <FavEditDel 

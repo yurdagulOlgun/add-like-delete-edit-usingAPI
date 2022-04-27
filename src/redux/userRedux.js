@@ -38,8 +38,7 @@ const userSlice = createSlice({
         },
         //edit
         editUser: (state, action) => {
-            const userID = action.payload
-            // state.users = state.users.filter((item) => item.id === userID)
+            state.users[state.users.findIndex((user) => user.id ===action.payload.userID )] = action.payload
         }
     }
 });

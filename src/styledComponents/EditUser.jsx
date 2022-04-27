@@ -8,22 +8,22 @@ export default function EditUser({
   setEmail,
   phone,
   setPhone,
-  website,
-  setWebsite,
+  domain,
+  setDomain,
   editClickHandler,
 }) {
   const formSubmitHandler = (e) => {
     e.preventDefault();
   };
 
-  const inputChangeHandler = (e) => {
-    setTimeout(() => {
-      setName(e.target.value);
-      setEmail(e.target.value);
-      setPhone(e.target.value);
-      setWebsite(e.target.value);
-    }, 300);
-  };
+  // const inputChangeHandler = (e) => {
+  //   setTimeout(() => {
+  //     setName(e.target.value);
+  //     setEmail(e.target.value);
+  //     setPhone(e.target.value);
+  //     setWebsite(e.target.value);
+  //   }, 300);
+  // };
   // console.log(name,email,phone,website);
   return (
     <>
@@ -39,28 +39,28 @@ export default function EditUser({
               <Label>Name:</Label>
               <Input
                 type="text"
-                onChange={inputChangeHandler}
-                defaultValue={name}
+                onChange={e => setName(e.target.value)}
+                value={name}
               />
             </LabInWrapper>
             <LabInWrapper>
               <Label>Email:</Label>
-              <Input type="text" onChange={inputChangeHandler} />
+              <Input type="text" value={email} onChange={e => setEmail(e.target.value)} />
             </LabInWrapper>
             <LabInWrapper>
               <Label>Phone:</Label>
-              <Input type="text" onChange={inputChangeHandler} />
+              <Input type="text" value={phone} onChange={e => setPhone(e.target.value)} />
             </LabInWrapper>
             <LabInWrapper>
               <Label>Website: </Label>
-              <Input type="text" onChange={inputChangeHandler} />
+              <Input type="text" value={domain} onChange={e => setDomain(e.target.value)} />
             </LabInWrapper>
           </WrapperWrapper>
           <ButtonWrapper>
             <Cancel type="submit" onClick={() => setIsOpen(false)}>
               Cancel
             </Cancel>
-            <Save type="submit" onClick={() => editClickHandler}  >Save</Save>
+            <Save type="submit" onClick={(e) => editClickHandler(e)}  >Save</Save>
           </ButtonWrapper>
         </Form>
       </FormWrapper>
