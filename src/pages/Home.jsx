@@ -110,7 +110,8 @@ const Home = (props) => {
 export default Home;
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(382px, 1fr));
+  /* justify-content: center; */
+  
 `;
