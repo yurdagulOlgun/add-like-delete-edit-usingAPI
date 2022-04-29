@@ -48,13 +48,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: space-between; */
   margin: 20px;
   text-align: start;
-  /* margin-top: 63px; */
-  /* width: 342px; */
-  /* margin-bottom: 20px; */
-  /* margin-left: 20px; */
   border: 1.5px solid #f2f2f2;
   filter: drop-shadow(0px 4px 4px #f2f2f2);
   background-color: #FAFAFA;
@@ -105,9 +100,9 @@ const IconText = styled.div`
 const BottomIconsWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
   align-items: center;
   align-self: center;
-  padding-left: 61.95px;
   width: 100%;
   background: #fafafa;
   box-shadow: 0px -1px 0px #e8e8e8;

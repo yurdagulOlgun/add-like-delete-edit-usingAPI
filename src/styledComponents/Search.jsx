@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import search from "../assets/search.png";
 import blue from "../assets/blue.png";
-import { useState } from "react";
-import { useRef } from "react";
 export default function Search(props) {
 
   const {q,setQ, inputRef} = props

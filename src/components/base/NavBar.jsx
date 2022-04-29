@@ -6,7 +6,7 @@ export default function NavBar()  {
         <>
             <Nav>
                 <Menu>
-                    <MenuText >bulamadım hala</MenuText>
+                    <MenuText >Userz</MenuText>
                 </Menu>
             </Nav>
         </>

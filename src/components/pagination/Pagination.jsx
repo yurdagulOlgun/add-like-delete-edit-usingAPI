@@ -1,14 +1,20 @@
-import useInfiniteScroll from "./useInfiniteScroll";
+import { useEffect } from "react";
 
 const Pagination = ({ setLimit, limit }) => {
-  const [isFetching, setIsFetching] = useInfiniteScroll(
-    limit < 60 ? moreData : false
-  );
+  
+  useEffect(() => {
+    window.addEventListener("scroll", isScrolling);
+    return () => window.removeEventListener("scroll", isScrolling);
+  }, []);
 
-  function moreData() {
-    setLimit(limit + 12);
-    setIsFetching(false);
+  const isScrolling = () => {
+    if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+      if(limit < 60) {
+        setLimit(limit += 12);
+      }
+    }
   }
+ 
 };
 
 export default Pagination;

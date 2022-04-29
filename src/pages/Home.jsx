@@ -17,7 +17,7 @@ const Home = (props) => {
 
   const [q, setQ] = useState("");
   const inputRef = useRef();
-  const [limit, setLimit] = useState(12);
+  const [limit, setLimit] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   //edit states
   const [name, setName] = useState("");
@@ -28,9 +28,9 @@ const Home = (props) => {
 
   useEffect(() => {
     if (users.length < 1) {
-      getUsers(dispatch, limit);
+      getUsers(dispatch);
     }
-  }, [dispatch, limit, users]);
+  }, [dispatch, users]);
 
   const popupHandler = (id) => {
     setIsOpen(!isOpen);
@@ -78,7 +78,7 @@ const Home = (props) => {
                 data.email?.toLowerCase().includes(q.toLowerCase()) ||
                 data.phone?.toLowerCase().includes(q.toLowerCase()) ||
                 data.website?.toLowerCase().includes(q.toLowerCase())
-            )
+            ).slice(0, limit + 12)
             .map((item, index) => (
               <UserCard
                 key={index}
@@ -91,7 +91,7 @@ const Home = (props) => {
         </Wrapper>
       ) : (
         <Wrapper>
-          {users?.map((item, index) => (
+          {users?.slice(0, limit + 12).map((item, index) => (
             <UserCard
               key={index}
               item={item}
