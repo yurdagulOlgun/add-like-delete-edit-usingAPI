@@ -16,15 +16,6 @@ export default function EditUser({
     e.preventDefault();
   };
 
-  // const inputChangeHandler = (e) => {
-  //   setTimeout(() => {
-  //     setName(e.target.value);
-  //     setEmail(e.target.value);
-  //     setPhone(e.target.value);
-  //     setWebsite(e.target.value);
-  //   }, 300);
-  // };
-  // console.log(name,email,phone,website);
   return (
     <>
       <FormWrapper>
@@ -69,6 +60,7 @@ export default function EditUser({
 }
 
 const FormWrapper = styled.div`
+
   border-radius: 4px;
   position: fixed;
   background: #00000050;
@@ -186,7 +178,7 @@ const Header = styled.div`
   display: flex;
   flex-direction: row;
   align-self: flex-start;
-  margin-top: -40px;
+  /* margin-top: -40px; */
   margin-bottom: 40px;
   box-shadow: 0px 2px #e8e8e8;
   gap: 200px;

@@ -2,23 +2,21 @@ import styled from "styled-components";
 import search from "../assets/search.png";
 import blue from "../assets/blue.png";
 export default function Search(props) {
+  const { q, setQ, inputRef } = props;
 
-  const {q,setQ, inputRef} = props
-
-
-  function inputHandler(event){
-    setTimeout(()=>{
-      setQ(event.target.value)
-    },300)
+  function inputHandler(event) {
+    setTimeout(() => {
+      setQ(event.target.value);
+    }, 300);
   }
 
   return (
     <>
-      <SearchWrapper  >
-        <SearchInput 
+      <SearchWrapper>
+        <SearchInput
           name="q"
-          type="text" 
-          placeholder="Search..." 
+          type="text"
+          placeholder="Search..."
           ref={inputRef}
           defaultValue={q}
           onChange={inputHandler}
@@ -30,14 +28,14 @@ export default function Search(props) {
 
 const SearchWrapper = styled.div`
   padding: 10px;
+  margin-top: 20px;
 `;
 
 const SearchInput = styled.input`
-  width: 25%;
-  height: 40px;
+  height: 72px;
   border: 0;
-  left: 20px;
-  top: 20px;
+  width: 50%;
+
   background-image: url(${search});
   background-repeat: no-repeat;
   background-position: 98% 50%;

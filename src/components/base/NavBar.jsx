@@ -6,7 +6,7 @@ export default function NavBar()  {
         <>
             <Nav>
                 <Menu>
-                    <MenuText >Userz</MenuText>
+                    <MenuText >Users</MenuText>
                 </Menu>
             </Nav>
         </>
@@ -22,9 +22,9 @@ const Nav = styled.div`
   flex-wrap: wrap;
   background: violet;
   position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: -100%;
+  left: 100%;
+  right: 100%;
 `;
 
 const Menu = styled.div`
@@ -42,7 +42,9 @@ const MenuText = styled.p`
   margin: auto;
   color: darkviolet;
   transition: all 0.3s ease-in;
-  font-size: 1.5rem;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
   &:hover {
     color: #240046;
   }

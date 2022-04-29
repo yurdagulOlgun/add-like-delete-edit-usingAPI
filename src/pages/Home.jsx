@@ -64,7 +64,7 @@ const Home = (props) => {
         />
       )}
 
-      {window.screen.width > 729 ? (
+      {window.innerWidth >= 729 ? (
         <Search q={q} setQ={setQ} inputRef={inputRef} />
       ) : null}
 
