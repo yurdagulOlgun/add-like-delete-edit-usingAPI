@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 export default function EditUser({
   setIsOpen,
@@ -12,39 +13,44 @@ export default function EditUser({
   setDomain,
   editClickHandler,
 }) {
+  
+  const { theme } = useSelector((state) => state);
+  const themeName = theme.themeName;
+
   const formSubmitHandler = (e) => {
     e.preventDefault();
   };
 
   return (
     <>
-      <FormWrapper>
-        <Form onSubmit={formSubmitHandler}>
-          <Header>
-            <HeaderText>Edit User</HeaderText>
+      <FormWrapper theme={themeName} >
+        <Form onSubmit={formSubmitHandler} theme={themeName}>
+          <Header theme={themeName}>
+            <HeaderText theme={themeName} >Edit User</HeaderText>
             <Close onClick={() => setIsOpen(false)}>x</Close>
           </Header>
 
           <WrapperWrapper>
             <LabInWrapper>
-              <Label>Name:</Label>
+              <Label theme={themeName}>Name:</Label>
               <Input
                 type="text"
                 onChange={e => setName(e.target.value)}
                 value={name}
+                theme={themeName}
               />
             </LabInWrapper>
             <LabInWrapper>
-              <Label>Email:</Label>
-              <Input type="text" value={email} onChange={e => setEmail(e.target.value)} />
+              <Label theme={themeName}>Email:</Label>
+              <Input type="text" value={email} onChange={e => setEmail(e.target.value)} theme={themeName} />
             </LabInWrapper>
             <LabInWrapper>
-              <Label>Phone:</Label>
-              <Input type="text" value={phone} onChange={e => setPhone(e.target.value)} />
+              <Label theme={themeName}>Phone:</Label>
+              <Input type="text" value={phone} onChange={e => setPhone(e.target.value)} theme={themeName}/>
             </LabInWrapper>
             <LabInWrapper>
-              <Label>Website: </Label>
-              <Input type="text" value={domain} onChange={e => setDomain(e.target.value)} />
+              <Label theme={themeName}>Website: </Label>
+              <Input type="text" value={domain} onChange={e => setDomain(e.target.value)} theme={themeName}/>
             </LabInWrapper>
           </WrapperWrapper>
           <ButtonWrapper>
@@ -63,7 +69,7 @@ const FormWrapper = styled.div`
 
   border-radius: 4px;
   position: fixed;
-  background: #00000050;
+  background: ${({ theme }) => (theme === "light" ? "rgba(56, 56, 56, 0.2)" : "rgba(228, 228, 228, 0.5)")};
   width: 100%;
   height: 100%;
   top: 0;
@@ -80,10 +86,10 @@ const Form = styled.form`
   align-items: flex-end;
   padding: 5%;
   position: relative;
-  background: #ffffff;
+  background:${({ theme }) => (theme === "light" ? "#ffffff" : "#232323")} ;
   border-radius: 4px;
 
-  border: 1px solid #999;
+  /* border: 1px solid #999; */
   overflow: auto;
 `;
 
@@ -108,13 +114,13 @@ const Label = styled.label`
   display: flex;
   align-items: center;
   text-align: right;
-  color: #1a1a1a;
+  color: ${({ theme }) => (theme === "light" ? "#1a1a1a" : "#ffffff")};
   padding-right: 8px;
 `;
 
 const Input = styled.input`
-  background: #ffffff;
-  border: 1px solid #e8e8e8;
+  background: ${({ theme }) => (theme === "light" ? "#ffffff" : "#232323")};
+  border: 1px solid ${({ theme }) => (theme === "light" ? "#e8e8e8" : "#4f4f4f")};
   border-radius: 4px;
 
   &:focus {
@@ -180,7 +186,7 @@ const Header = styled.div`
   align-self: flex-start;
   /* margin-top: -40px; */
   margin-bottom: 40px;
-  box-shadow: 0px 2px #e8e8e8;
+  box-shadow: 0px 2px ${({ theme }) => (theme === "light" ? "#e8e8e8" : "#4f4f4f")};
   gap: 200px;
 `;
 
@@ -190,5 +196,5 @@ const HeaderText = styled.h1`
   line-height: 17px;
   display: flex;
   align-items: center;
-  color: #1a1a1a;
+  color: ${({ theme }) => (theme === "light" ? "#1a1a1a" : "#ffffff")};
 `;

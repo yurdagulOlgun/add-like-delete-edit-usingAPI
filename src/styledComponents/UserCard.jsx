@@ -3,39 +3,46 @@ import phone from "../assets/phone.png";
 import email from "../assets/email.png";
 import link from "../assets/link.png";
 import FavEditDel from "./FavEditDel";
-export default function UserCard({ item,popupHandler,delButtonHandler,editClickHandler }) {
+import { useSelector } from "react-redux";
 
-  // function editClickHandler(){
-  //   console.log(item.id);
-  // }
-
+export default function UserCard({
+  item,
+  popupHandler,
+  delButtonHandler,
+  editClickHandler,
+}) {
+  const { theme } = useSelector((state) => state);
+  const themeName = theme.themeName;
   return (
     <>
-      <Container>
+      <Container theme={themeName}>
         <Avatar
           src={`https://avatars.dicebear.com/v2/avataaars/${item.firstName}.svg`}
+          theme={themeName}
         />
-        <Name>
-          {item.firstName} {item.lastName}
-        </Name>
-        <IconText>
-          <Icon src={email} />
-          <Text>{item.email}</Text>
-        </IconText>
-        <IconText>
-          <Icon src={phone} />
-          <Text>{item.phone}</Text>
-        </IconText>
-        <IconText>
-          <Icon src={link} />
-          <Text>https://{item.domain}</Text>
-        </IconText>
-        <BottomIconsWrapper>
-          <FavEditDel 
-          item={item} 
-          popupHandler={popupHandler} 
-          delButtonHandler={delButtonHandler}
-          editClickHandler={editClickHandler}
+        <NameIconText theme={themeName} >
+          <Name theme={themeName} >
+            {item.firstName} {item.lastName}
+          </Name>
+          <IconText theme={themeName}>
+            <Icon src={email} />
+            <Text theme={themeName} >{item.email}</Text>
+          </IconText>
+          <IconText theme={themeName} >
+            <Icon src={phone} />
+            <Text theme={themeName} >{item.phone}</Text>
+          </IconText>
+          <IconText theme={themeName} >
+            <Icon src={link} />
+            <Text theme={themeName} >https://{item.domain}</Text>
+          </IconText>
+        </NameIconText>
+        <BottomIconsWrapper theme={themeName} >
+          <FavEditDel
+            item={item}
+            popupHandler={popupHandler}
+            delButtonHandler={delButtonHandler}
+            editClickHandler={editClickHandler}
           />
         </BottomIconsWrapper>
       </Container>
@@ -50,9 +57,11 @@ const Container = styled.div`
   align-items: center;
   margin: 20px;
   text-align: start;
-  border: 1.5px solid #f2f2f2;
-  filter: drop-shadow(0px 4px 4px #f2f2f2);
-  background-color: #FAFAFA;
+  border: 1px solid
+    ${({ theme }) => (theme === "light" ? "#f2f2f2" : "#4F4F4F")};
+  /* filter: drop-shadow(0px 4px 4px #f2f2f2); */
+  background-color: ${({ theme }) =>
+    theme === "light" ? "#FAFAFA" : "#1A1A1A"};
 `;
 
 const Avatar = styled.img`
@@ -61,7 +70,8 @@ const Avatar = styled.img`
 
   width: 100%;
   &:hover {
-    background-color: #E8E8E8;
+    background-color: ${({ theme }) =>
+      theme === "light" ? "#E8E8E8" : "rgba(150, 150, 150, 0.7)"};
   }
 `;
 
@@ -72,8 +82,17 @@ const Name = styled.h1`
   display: flex;
   align-items: center;
   align-self: flex-start;
-  color: #1a1a1a;
+  color: ${({ theme }) => (theme === "light" ? "#1a1a1a" : "#ffffff")};
   padding-left: 21px;
+`;
+
+const NameIconText = styled.div`
+  background-color: ${({ theme }) =>
+    theme === "light" ? "#FFFFFF" : "#383838"};
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  width: 100%;
 `;
 
 const Icon = styled.img``;
@@ -86,7 +105,7 @@ const Text = styled.p`
   display: flex;
   align-items: center;
 
-  color: #1a1a1a;
+  color: ${({ theme }) => (theme === "light" ? "#1a1a1a" : "#ffffff")};
 `;
 
 const IconText = styled.div`
@@ -104,6 +123,6 @@ const BottomIconsWrapper = styled.div`
   align-items: center;
   align-self: center;
   width: 100%;
-  background: #fafafa;
-  box-shadow: 0px -1px 0px #e8e8e8;
+  background: ${({ theme }) => (theme === "light" ? "#fafafa" : "#1a1a1a")};
+  box-shadow: 0px -1px 0px ${({ theme }) => (theme === "light" ? "#e8e8e8" : "#4f4f4f")};
 `;

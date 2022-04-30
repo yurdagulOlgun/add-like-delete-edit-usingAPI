@@ -12,7 +12,7 @@ import { getUsers } from "../redux/apiCalls";
 import { deleteUserSuccess, editUser } from "../redux/userRedux";
 import { changeTheme } from "../redux/themeRedux";
 
-const Home = (props) => {
+const Home = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.user.users);
 
@@ -48,6 +48,8 @@ const Home = (props) => {
 
   useEffect(() => {
     dispatch(changeTheme(mode))
+    mode === "light" ? 
+    document.body.style.backgroundColor = " #ffffff" : document.body.style.backgroundColor = " #5e5e5e"
   },[])
 
   useEffect(() => {
@@ -70,6 +72,9 @@ const Home = (props) => {
     dispatch(editUser({ userID, name, email, phone, domain }));
     setIsOpen(!isOpen);
   }
+
+  //  const bodyBGC = document.getElementById("body").style.backgroundColor 
+  //  mode === "light" ? bodyBGC = "#f2f2f2" : bodyBGC = "#5e5e5e"
 
   return (
     <>
@@ -137,5 +142,4 @@ export default Home;
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(382px, 1fr));
-  /* justify-content: center; */
 `;
