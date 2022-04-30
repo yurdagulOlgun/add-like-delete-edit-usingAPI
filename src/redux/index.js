@@ -12,10 +12,12 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import themeReducer from "./themeRedux";
 
 const rootReducer = combineReducers({
   favorites: favoriteReducer,
   user: userReducer,
+  theme: themeReducer,
 });
 
 const persistConfig = {

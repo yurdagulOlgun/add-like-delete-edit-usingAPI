@@ -10,6 +10,7 @@ import EditUser from "../styledComponents/EditUser";
 import { useEffect } from "react";
 import { getUsers } from "../redux/apiCalls";
 import { deleteUserSuccess, editUser } from "../redux/userRedux";
+import { changeTheme } from "../redux/themeRedux";
 
 const Home = (props) => {
   const dispatch = useDispatch();
@@ -26,6 +27,29 @@ const Home = (props) => {
   const [domain, setDomain] = useState("");
   const [userID, setUserID] = useState();
 
+  // for theme
+  const [mode, setMode] = useState(
+    window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light"
+  );
+  useEffect(() => {
+    const modeMe = (e) => {
+      setMode(e.matches ? "dark" : "light");
+    };
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", modeMe);
+    return () =>
+      window.matchMedia("(prefers-color-scheme: dark)").removeListener(modeMe);
+  }, [setMode]);
+  console.log(mode);
+
+  useEffect(() => {
+    dispatch(changeTheme(mode))
+  },[])
+
   useEffect(() => {
     if (users.length < 1) {
       getUsers(dispatch);
@@ -34,39 +58,39 @@ const Home = (props) => {
 
   const popupHandler = (id) => {
     setIsOpen(!isOpen);
-    setUserID(id)
+    setUserID(id);
   };
 
   function delButtonHandler(id) {
     dispatch(deleteUserSuccess(id));
   }
 
-  function editClickHandler(e){
+  function editClickHandler(e) {
     e.preventDefault();
-    dispatch(editUser({userID,name,email,phone,domain}))
-    setIsOpen(!isOpen)
+    dispatch(editUser({ userID, name, email, phone, domain }));
+    setIsOpen(!isOpen);
   }
 
   return (
     <>
       {isOpen && (
-        <EditUser 
-        setIsOpen={setIsOpen}
-        name={name} 
-        setName={setName}
-        email={email}
-        setEmail={setEmail}
-        phone={phone}
-        setPhone={setPhone}
-        domain={domain}
-        setDomain={setDomain}
-        editClickHandler={editClickHandler}
+        <EditUser
+          setIsOpen={setIsOpen}
+          name={name}
+          setName={setName}
+          email={email}
+          setEmail={setEmail}
+          phone={phone}
+          setPhone={setPhone}
+          domain={domain}
+          setDomain={setDomain}
+          editClickHandler={editClickHandler}
         />
       )}
 
-      {window.innerWidth >= 729 ? (
+      {window.matchMedia("(max-width: 729px)").matches ? null : (
         <Search q={q} setQ={setQ} inputRef={inputRef} />
-      ) : null}
+      )}
 
       {q ? (
         <Wrapper>
@@ -78,7 +102,8 @@ const Home = (props) => {
                 data.email?.toLowerCase().includes(q.toLowerCase()) ||
                 data.phone?.toLowerCase().includes(q.toLowerCase()) ||
                 data.website?.toLowerCase().includes(q.toLowerCase())
-            ).slice(0, limit + 12)
+            )
+            .slice(0, limit + 12)
             .map((item, index) => (
               <UserCard
                 key={index}
@@ -113,5 +138,4 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(382px, 1fr));
   /* justify-content: center; */
-  
 `;
