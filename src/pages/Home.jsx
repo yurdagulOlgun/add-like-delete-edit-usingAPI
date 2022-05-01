@@ -69,6 +69,7 @@ const Home = () => {
   const popupHandler = (id) => {
     setIsOpen(!isOpen);
     setUserID(id);
+    document.body.style.overflow = "hidden";
   };
 
   function delButtonHandler(id) {
