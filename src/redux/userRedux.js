@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const userSlice = createSlice({
     name: "user",
     initialState: {
+        radioIDs:[],
         currentUser: null,
         users: [],
         isFetching: false,
@@ -39,9 +40,14 @@ const userSlice = createSlice({
         //edit
         editUser: (state, action) => {
             state.users[state.users.findIndex((user) => user.id ===action.payload.userID )] = action.payload
+        },
+        //multiple
+        radioUsersID: (state,action) => {
+            const ids = state.radioIDs
+            state.radioIDs = [...ids, action.payload]
         }
     }
 });
 
-export const { getUsersFailure, getUsersStart, getUsersSuccess, deleteUserFailure, deleteUserStart, deleteUserSuccess, editUser } = userSlice.actions;
+export const { getUsersFailure, getUsersStart, getUsersSuccess, deleteUserFailure, deleteUserStart, deleteUserSuccess, editUser, radioUsersID } = userSlice.actions;
 export default userSlice.reducer;

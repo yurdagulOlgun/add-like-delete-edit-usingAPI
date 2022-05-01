@@ -3,7 +3,9 @@ import phone from "../assets/phone.png";
 import email from "../assets/email.png";
 import link from "../assets/link.png";
 import FavEditDel from "./FavEditDel";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { radioUsersID } from "../redux/userRedux";
 
 export default function UserCard({
   item,
@@ -11,11 +13,23 @@ export default function UserCard({
   delButtonHandler,
   editClickHandler,
 }) {
+
+  const dispatch = useDispatch();
+
   const { theme } = useSelector((state) => state);
   const themeName = theme.themeName;
+
+  const [radio, setRadio] = useState([])
+
+  function radioButtonHandler (id) {
+    dispatch(radioUsersID(id))
+    setRadio(id)
+  }
+
   return (
     <>
       <Container theme={themeName}>
+        <RadioButton type="checkbox" name="radio" value={radio} onClick={() => radioButtonHandler(item.id)}  />
         <Avatar
           src={`https://avatars.dicebear.com/v2/avataaars/${item.firstName}.svg`}
           theme={themeName}
@@ -62,6 +76,10 @@ const Container = styled.div`
   /* filter: drop-shadow(0px 4px 4px #f2f2f2); */
   background-color: ${({ theme }) =>
     theme === "light" ? "#FAFAFA" : "#1A1A1A"};
+`;
+
+const RadioButton = styled.input`
+
 `;
 
 const Avatar = styled.img`
