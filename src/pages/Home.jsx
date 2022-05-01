@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { getUsers } from "../redux/apiCalls";
 import { deleteUserSuccess, editUser } from "../redux/userRedux";
 import { changeTheme } from "../redux/themeRedux";
+import Loading from "../styledComponents/Loading";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,9 @@ const Home = () => {
   const [phone, setPhone] = useState("");
   const [domain, setDomain] = useState("");
   const [userID, setUserID] = useState();
+
+  //loading
+  const [isLoading, setIsLoading] = useState(true);
 
   // for theme
   const [mode, setMode] = useState(
@@ -44,18 +48,22 @@ const Home = () => {
     return () =>
       window.matchMedia("(prefers-color-scheme: dark)").removeListener(modeMe);
   }, [setMode]);
-  console.log(mode);
 
   useEffect(() => {
-    dispatch(changeTheme(mode))
-    mode === "light" ? 
-    document.body.style.backgroundColor = " #ffffff" : document.body.style.backgroundColor = " #5e5e5e"
-  },[])
+    dispatch(changeTheme(mode));
+    mode === "light"
+      ? (document.body.style.backgroundColor = " #ffffff")
+      : (document.body.style.backgroundColor = " #5e5e5e");
+  }, []);
 
+  //I put setTimeout so I can see Loading Component running.
   useEffect(() => {
-    if (users.length < 1) {
-      getUsers(dispatch);
-    }
+    setTimeout(() => {
+      if (users.length < 1) {
+        getUsers(dispatch);
+      }
+      setIsLoading(false);
+    }, 500);
   }, [dispatch, users]);
 
   const popupHandler = (id) => {
@@ -73,8 +81,9 @@ const Home = () => {
     setIsOpen(!isOpen);
   }
 
-  //  const bodyBGC = document.getElementById("body").style.backgroundColor 
-  //  mode === "light" ? bodyBGC = "#f2f2f2" : bodyBGC = "#5e5e5e"
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
