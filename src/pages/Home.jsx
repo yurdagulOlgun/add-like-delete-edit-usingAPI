@@ -22,7 +22,7 @@ const Home = () => {
   const [limit, setLimit] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   //edit states
-  const [name, setName] = useState("");
+  const [firstName, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [domain, setDomain] = useState("");
@@ -77,7 +77,7 @@ const Home = () => {
 
   function editClickHandler(e) {
     e.preventDefault();
-    dispatch(editUser({ userID, name, email, phone, domain }));
+    dispatch(editUser({ userID, firstName, email, phone, domain }));
     setIsOpen(!isOpen);
   }
 
@@ -90,7 +90,7 @@ const Home = () => {
       {isOpen && (
         <EditUser
           setIsOpen={setIsOpen}
-          name={name}
+          firstName={firstName}
           setName={setName}
           email={email}
           setEmail={setEmail}

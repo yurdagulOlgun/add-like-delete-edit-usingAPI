@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 export default function EditUser({
   setIsOpen,
-  name,
+  firstName,
   setName,
   email,
   setEmail,
@@ -13,7 +13,6 @@ export default function EditUser({
   setDomain,
   editClickHandler,
 }) {
-  
   const { theme } = useSelector((state) => state);
   const themeName = theme.themeName;
 
@@ -23,10 +22,10 @@ export default function EditUser({
 
   return (
     <>
-      <FormWrapper theme={themeName} >
+      <FormWrapper theme={themeName}>
         <Form onSubmit={formSubmitHandler} theme={themeName}>
           <Header theme={themeName}>
-            <HeaderText theme={themeName} >Edit User</HeaderText>
+            <HeaderText theme={themeName}>Edit User</HeaderText>
             <Close onClick={() => setIsOpen(false)}>x</Close>
           </Header>
 
@@ -34,30 +33,58 @@ export default function EditUser({
             <LabInWrapper>
               <Label theme={themeName}>Name:</Label>
               <Input
+                required
                 type="text"
-                onChange={e => setName(e.target.value)}
-                value={name}
+                onChange={(e) => setName(e.target.value)}
+                value={firstName}
                 theme={themeName}
               />
             </LabInWrapper>
             <LabInWrapper>
               <Label theme={themeName}>Email:</Label>
-              <Input type="text" value={email} onChange={e => setEmail(e.target.value)} theme={themeName} />
+              <Input
+                required
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                theme={themeName}
+              />
             </LabInWrapper>
             <LabInWrapper>
               <Label theme={themeName}>Phone:</Label>
-              <Input type="text" value={phone} onChange={e => setPhone(e.target.value)} theme={themeName}/>
+              <Input
+                required
+                type="text"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                theme={themeName}
+              />
             </LabInWrapper>
             <LabInWrapper>
               <Label theme={themeName}>Website: </Label>
-              <Input type="text" value={domain} onChange={e => setDomain(e.target.value)} theme={themeName}/>
+              <Input
+                required
+                type="text"
+                value={domain}
+                onChange={(e) => setDomain(e.target.value)}
+                theme={themeName}
+              />
             </LabInWrapper>
           </WrapperWrapper>
           <ButtonWrapper>
             <Cancel type="submit" onClick={() => setIsOpen(false)}>
               Cancel
             </Cancel>
-            <Save type="submit" onClick={(e) => editClickHandler(e)}  >Save</Save>
+            <Save
+              type="submit"
+              onClick={(e) => {
+                if (firstName && email && phone && domain) {
+                  editClickHandler(e);
+                }
+              }}
+            >
+              Save
+            </Save>
           </ButtonWrapper>
         </Form>
       </FormWrapper>
@@ -66,10 +93,10 @@ export default function EditUser({
 }
 
 const FormWrapper = styled.div`
-
   border-radius: 4px;
   position: fixed;
-  background: ${({ theme }) => (theme === "light" ? "rgba(56, 56, 56, 0.2)" : "rgba(228, 228, 228, 0.5)")};
+  background: ${({ theme }) =>
+    theme === "light" ? "rgba(56, 56, 56, 0.2)" : "rgba(228, 228, 228, 0.5)"};
   width: 100%;
   height: 100%;
   top: 0;
@@ -86,10 +113,8 @@ const Form = styled.form`
   align-items: flex-end;
   padding: 5%;
   position: relative;
-  background:${({ theme }) => (theme === "light" ? "#ffffff" : "#232323")} ;
+  background: ${({ theme }) => (theme === "light" ? "#ffffff" : "#232323")};
   border-radius: 4px;
-
-  /* border: 1px solid #999; */
   overflow: auto;
 `;
 
@@ -120,12 +145,13 @@ const Label = styled.label`
 
 const Input = styled.input`
   background: ${({ theme }) => (theme === "light" ? "#ffffff" : "#232323")};
-  border: 1px solid ${({ theme }) => (theme === "light" ? "#e8e8e8" : "#4f4f4f")};
+  border: 1px solid
+    ${({ theme }) => (theme === "light" ? "#e8e8e8" : "#4f4f4f")};
   border-radius: 4px;
-
   &:focus {
     border: 1px solid #1890ff;
     outline: none;
+    color: ${({ theme }) => (theme === "light" ? "#1a1a1a" : "#ffffff")};
   }
 `;
 
@@ -186,7 +212,8 @@ const Header = styled.div`
   align-self: flex-start;
   /* margin-top: -40px; */
   margin-bottom: 40px;
-  box-shadow: 0px 2px ${({ theme }) => (theme === "light" ? "#e8e8e8" : "#4f4f4f")};
+  box-shadow: 0px 2px
+    ${({ theme }) => (theme === "light" ? "#e8e8e8" : "#4f4f4f")};
   gap: 200px;
 `;
 
