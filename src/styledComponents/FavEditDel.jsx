@@ -15,6 +15,8 @@ export default function FavEditDel({ item, popupHandler,delButtonHandler,editCli
 
   const isFav = favorites?.some((fav) => fav.id === item.id);
 
+
+
   return (
     <>
       {isFav ? (

@@ -5,7 +5,7 @@ import link from "../assets/link.png";
 import FavEditDel from "./FavEditDel";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { radioUsersID } from "../redux/userRedux";
+import { checkUsersID, deleteUserSuccess } from "../redux/userRedux";
 
 export default function UserCard({
   item,
@@ -13,45 +13,64 @@ export default function UserCard({
   delButtonHandler,
   editClickHandler,
 }) {
-
   const dispatch = useDispatch();
 
   const { theme } = useSelector((state) => state);
   const themeName = theme.themeName;
 
-  const [radio, setRadio] = useState([])
+  // document.addEventListener('keyup', function(event) {
+  //   if (event.ctrlKey && event.which === 68) {
+  //     console.log("pressed ctrl+d ");
+  //     event.preventDefault();
+  //     event.stopPropagation();
+  //   }
+  // }, false);
 
-  function radioButtonHandler (id) {
-    dispatch(radioUsersID(id))
-    setRadio(id)
+  const [check, setCheck] = useState([]);
+  const [isChecked, setChecked] = useState(false);
+
+  function radioButtonHandler(id) {
+    dispatch(checkUsersID(id));
+    setCheck(id);
+    setChecked(!isChecked);
   }
 
   return (
     <>
       <Container theme={themeName}>
-        <RadioButton type="checkbox" name="radio" value={radio} onClick={() => radioButtonHandler(item.id)}  />
+        <CheckRound>
+          <input
+            type="checkbox"
+            id={item.id}
+            name="checkbox"
+            value={check}
+            onClick={() => radioButtonHandler(item.id)}
+            defaultChecked={isChecked}
+          />
+          <label htmlFor={item.id}></label>
+        </CheckRound>
         <Avatar
           src={`https://avatars.dicebear.com/v2/avataaars/${item.firstName}.svg`}
           theme={themeName}
         />
-        <NameIconText theme={themeName} >
-          <Name theme={themeName} >
+        <NameIconText theme={themeName}>
+          <Name theme={themeName}>
             {item.firstName} {item.lastName}
           </Name>
           <IconText theme={themeName}>
             <Icon src={email} />
-            <Text theme={themeName} >{item.email}</Text>
+            <Text theme={themeName}>{item.email}</Text>
           </IconText>
-          <IconText theme={themeName} >
+          <IconText theme={themeName}>
             <Icon src={phone} />
-            <Text theme={themeName} >{item.phone}</Text>
+            <Text theme={themeName}>{item.phone}</Text>
           </IconText>
-          <IconText theme={themeName} >
+          <IconText theme={themeName}>
             <Icon src={link} />
-            <Text theme={themeName} >https://{item.domain}</Text>
+            <Text theme={themeName}>https://{item.domain}</Text>
           </IconText>
         </NameIconText>
-        <BottomIconsWrapper theme={themeName} >
+        <BottomIconsWrapper theme={themeName}>
           <FavEditDel
             item={item}
             popupHandler={popupHandler}
@@ -73,13 +92,57 @@ const Container = styled.div`
   text-align: start;
   border: 1px solid
     ${({ theme }) => (theme === "light" ? "#f2f2f2" : "#4F4F4F")};
-  /* filter: drop-shadow(0px 4px 4px #f2f2f2); */
   background-color: ${({ theme }) =>
     theme === "light" ? "#FAFAFA" : "#1A1A1A"};
 `;
 
-const RadioButton = styled.input`
-
+const CheckRound = styled.div`
+  display: flex;
+  height: 0;
+  align-self: flex-end;
+  > input {
+    opacity: 0;
+  }
+  > input + label {
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+    &:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 1px;
+      width: 18px;
+      height: 18px;
+      border: 1px solid #1890ff;
+      background: #ffffff;
+      border-radius: 50%;
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      top: 4px;
+      left: 3px;
+      width: 12px;
+      height: 12px;
+      background: #1890ff;
+      border: 1px solid #1890ff;
+      border-radius: 50%;
+      transition: all 0.2s;
+    }
+  }
+  > input:not(:checked) + label {
+    &:after {
+      opacity: 0;
+      transform: scale(0);
+    }
+  }
+  > input:checked + label {
+    &:after {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 `;
 
 const Avatar = styled.img`

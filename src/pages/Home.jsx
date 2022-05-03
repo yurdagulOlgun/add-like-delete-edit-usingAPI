@@ -86,6 +86,7 @@ const Home = () => {
     return <Loading />;
   }
 
+
   return (
     <>
       {isOpen && (
