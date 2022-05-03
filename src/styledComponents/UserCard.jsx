@@ -34,13 +34,10 @@ export default function UserCard({
     setCheck(id);
     setChecked(!isChecked);
   }
-
-  function yoyoyoyo() {}
-
   return (
     <>
       <Container theme={themeName}>
-        <CheckRound id={item.id}>
+        <CheckRound id={item.firstName}>
           <input
             type="checkbox"
             id={item.id}
@@ -55,10 +52,10 @@ export default function UserCard({
           src={`https://avatars.dicebear.com/v2/avataaars/${item.firstName}.svg`}
           theme={themeName}
           onMouseOver={() =>
-            (document.getElementById(`${item.id}`).style.display = "flex")
+            (document.getElementById(`${item.firstName}`).style.display = "flex")
           }
           onMouseLeave={() =>
-            (document.getElementById(`${item.id}`).style.display = "none")
+            (document.getElementById(`${item.firstName}`).style.display = "none")
           }
         />
         <NameIconText theme={themeName}>
@@ -106,7 +103,7 @@ const Container = styled.div`
 
 const CheckRound = styled.div`
   display: none;
-  height: 0;
+  height: 0px;
   align-self: flex-end;
   > input {
     opacity: 0;
